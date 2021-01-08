@@ -38,6 +38,7 @@ var detectorElem,
   noteElem,
   detuneElem,
   detuneAmount;
+var timer = 0;
 
 window.onload = function () {
   audioContext = new AudioContext();
@@ -90,7 +91,11 @@ window.onload = function () {
 
   this.addEventListener("keydown", (event) => {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
-      document.getElementById("maininput").value += event.key;
+      let origString = document.getElementById("maininput").value;
+      document.getElementById("maininput").value =
+        origString.substring(0, origString.length - 22) +
+        event.key +
+        origString.substring(origString.length - 22);
     }
   });
 };
@@ -132,21 +137,22 @@ function toggleLiveInput() {
     if (!window.cancelAnimationFrame)
       window.cancelAnimationFrame = window.webkitCancelAnimationFrame;
     window.cancelAnimationFrame(rafID);
-  }
-  getUserMedia(
-    {
-      audio: {
-        mandatory: {
-          googEchoCancellation: "false",
-          googAutoGainControl: "false",
-          googNoiseSuppression: "false",
-          googHighpassFilter: "false",
+  } else {
+    getUserMedia(
+      {
+        audio: {
+          mandatory: {
+            googEchoCancellation: "false",
+            googAutoGainControl: "false",
+            googNoiseSuppression: "false",
+            googHighpassFilter: "false",
+          },
+          optional: [],
         },
-        optional: [],
       },
-    },
-    gotStream
-  );
+      gotStream
+    );
+  }
 }
 
 var rafID = null;
@@ -194,7 +200,7 @@ function autoCorrelate(buf, sampleRate) {
     rms += val * val;
   }
   rms = Math.sqrt(rms / SIZE);
-  if (rms < 0.25)
+  if (rms < 0.2)
     // not enough signal
     return -1;
 
@@ -292,11 +298,37 @@ function updatePitch(time) {
       if (detune < 0) detuneElem.className = "flat";
       else detuneElem.className = "sharp";
       detuneAmount.innerHTML = Math.abs(detune);
-	}
-	
-	if (pitch > 200) {
-		document.getElementById("maininput").value += "!"
-	}
+    }
+
+    if (timer == 0) {
+      let origString = document.getElementById("maininput").value;
+      if (pitch >= 80 && pitch < 130) {
+        document.getElementById("maininput").value =
+          origString.substring(0, origString.length - 23) +
+          origString.substring(origString.length - 22);
+      } else if (pitch >= 130 && pitch < 180) {
+        document.getElementById("maininput").value =
+          origString.substring(0, origString.length - 22) +
+          " " +
+          origString.substring(origString.length - 22);
+      } else if (pitch >= 180 && pitch < 230) {
+        document.getElementById("maininput").value =
+          origString.substring(0, origString.length - 22) +
+          "	" +
+          origString.substring(origString.length - 22);
+      } else if (pitch >= 230 && pitch < 280) {
+        document.getElementById("maininput").value =
+          origString.substring(0, origString.length - 22) +
+          "\r\n" +
+          origString.substring(origString.length - 22);
+      }
+
+      // document.getElementById("maininput").value += "!"
+    }
+
+    timer++;
+    timer = timer % 10;
+    console.log(timer);
   }
 
   if (!window.requestAnimationFrame)
