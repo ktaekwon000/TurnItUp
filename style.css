@@ -158,12 +158,13 @@ img {
   justify-self: start;
 }
 
-button {
+.restart_btn {
+  display: none;
   font-family: "Alike", serif;
   color: #fcf8e8;
   background-color: #326765;
   height: 45px;
-  width: 65px;
+  width: 80px;
   margin: 8px;
   padding: 12px;
   border-radius: 20%;
@@ -171,7 +172,7 @@ button {
   box-shadow: grey 3px 3px 3px;
 }
 
-button:hover {
+.restart_btn:hover {
   background-color: #ecb390;
 }
 
