@@ -211,3 +211,36 @@ button:hover {
   background: #df7861; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
+
+/* LeaderBoard CSS */
+
+#leaderboardTable {
+  margin: 0 auto;
+  width: 40%;
+}
+
+h1 {
+  font-size: 50px;
+  font-family: "Sigmar One", cursive;
+  color: #df7861;
+}
+
+.leaderboard-title {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.fa-trophy {
+    justify-self: end;
+    align-self: center;
+}
+.fa-medal {
+  justify-self: start;
+  align-self: center;
+}
+
+th {
+  font-family: "Times New Roman";
+  font-weight: bold;
+  font-size: 20px;
+}
