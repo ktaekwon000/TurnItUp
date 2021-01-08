@@ -21,19 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-// define the time limit
-let TIME_LIMIT = 60;
-
 // define quotes to be used
-// let quotes_array = [
-//   "Push yourself, because no one else is going to do it for you.",
-//   "Failure is the condiment that gives success its flavor.",
-//   "Wake up with determination. Go to bed with satisfaction.",
-//   "It's going to be hard, but hard does not mean impossible.",
-//   "Learning never exhausts the mind.",
-//   "The only way to do great work is to love what you do."
-// ];
-
 let quotes_array = [
   "Push your limit",
   "Success is on the way",
@@ -56,8 +44,8 @@ let cpm_group = document.querySelector(".cpm");
 let wpm_group = document.querySelector(".wpm");
 let error_group = document.querySelector(".errors");
 let accuracy_group = document.querySelector(".accuracy");
+let round_text = document.querySelector(".curr_round");
 
-let timeLeft = TIME_LIMIT;
 let timeElapsed = 0;
 let total_errors = 0;
 let errors = 0;
@@ -66,6 +54,7 @@ let characterTyped = 0;
 let current_quote = "";
 let quoteNo = 0;
 let game_timer = null;
+let roundNo = 0;
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -131,25 +120,25 @@ window.onload = function () {
 };
 
 function updateQuote() {
-  console.log('calling updateQuote');
+ if (quoteNo >= quotes_array.length) {
+    finishGame();
+    return;
+  }
+
   quote_text.textContent = null;
   current_quote = quotes_array[quoteNo];
 
-  // separate each character and make an element 
+  // separate each character and make an element
   // out of each of them to individually style them
-  current_quote.split('').forEach(char => {
-    const charSpan = document.createElement('span')
-    charSpan.innerText = char
-    quote_text.appendChild(charSpan)
-  })
-
-  console.log(quote_text);
+  current_quote.split("").forEach((char) => {
+    const charSpan = document.createElement("span");
+    charSpan.innerText = char;
+    quote_text.appendChild(charSpan);
+  });
 
   // roll over to the first quote
-  if (quoteNo < quotes_array.length - 1)
-    quoteNo++;
-  else
-    quoteNo = 0;
+  quoteNo++;
+  roundNo++;
 }
 
 function processCurrentText() {
@@ -212,20 +201,12 @@ function processCurrentText() {
 }
 
 function updateTimer() {
-  if (timeLeft > 0) {
-    // decrease the current time left
-    timeLeft--;
-
     // increase the time elapsed
     timeElapsed++;
 
     // update the timer text
-    timer_text.textContent = timeLeft + "s";
-  }
-  else {
-    // finish the game
-    finishGame();
-  }
+    timer_text.textContent = timeElapsed + "s";
+  //}
 }
 
 function finishGame() {
@@ -266,7 +247,6 @@ function startGame() {
 }
 
 function resetValues() {
-  timeLeft = TIME_LIMIT;
   timeElapsed = 0;
   errors = 0;
   total_errors = 0;
@@ -278,11 +258,12 @@ function resetValues() {
   input_area.value = "←(Your cursor is here)";
   quote_text.textContent = 'Click on the area below to start the game.';
   accuracy_text.textContent = 100;
-  timer_text.textContent = timeLeft + 's';
+  timer_text.textContent = timeElapsed + 's';
   error_text.textContent = 0;
   restart_btn.style.display = "none";
   cpm_group.style.display = "none";
   wpm_group.style.display = "none";
+  round_text.textContent = 1;
 
   shuffleArray(quotes_array);
 }
