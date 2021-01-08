@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+	<title>Turn It Up</title> 
+	<!-- link the CSS file here -->
+    <link rel="stylesheet" href="style.css">
+    <link
+      href="http://fonts.googleapis.com/css?family=Alike"
+      rel="stylesheet"
+      type="text/css"
+    /> 
+</head> 
+<body> 
+    <!-- link the JavaScript files here -->
+    <script src="js/pitchdetect.js">
+    </script>
+    <script src="js/game.js"> 
+    </script> 
+    </script>
+    <div class="container"> 
+        <div class="heading"> 
+            Turn It Up 
+        </div>
+        <h3 id="vowelIndicator">Loading...</h3>
+        <div class="header"> 
+            <div class="rank"> 
+                <div class="header_text">Rank</div> 
+                <div class="curr_rank">0</div> 
+            </div> 
+            <div class="timer"> 
+                <div class="header_text">Time</div> 
+                <div class="curr_time">60s</div> 
+            </div> 
+            <div class="avg_cpm"> 
+                <div class="header_text">CPM</div> 
+                <div class="curr_avg_cpm">100</div> 
+            </div> 
+        </div> 
+
+        <div class="quote"> 
+            Click on the area below to start the game. 
+        </div> 
+
+        <textarea class="input_area"
+            id="maininput"
+            placeholder="start typing here..."
+            oninput="processCurrentText()"
+            onfocus="startGame()"
+            readonly autocomplete="off">
+        </textarea>
+
+        <div class="footer">
+            <button class="restart_btn"
+                onclick="resetValues()"> 
+                Restart 
+            </button> 
+            <button class="activate_btn" 
+                onclick="toggleLiveInput()">
+                Activate
+            </button>
+        </div>
+
+        <div class="slidecontainer">
+            <input type="range" min="0.01" max="0.4" value="0.2" step="0.01" class="slider" id="myRange">
+            <p>Volume threshold: <span id="sliderVal"></span></p>
+        </div>
+    </div> 
+</body> 
+</html> 
+
