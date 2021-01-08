@@ -1,54 +1,67 @@
-<html lang="en">
-<head>
-  <title>Simple Speed Typer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <div class="heading">Simple Speed Typing</div>
-    <h3 id="vowelIndicator">Loading...</h3>
-    <div class="header">
-      <div class="wpm">
-        <div class="header_text">WPM</div>
-        <div class="curr_wpm">100</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Turn it Up! Typer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alike&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="heading">Turn it Up! Typer</div>
+      <div class="header">
+        <div class="wpm">
+          <div class="header_text">WPM</div>
+          <div class="curr_wpm">100</div>
+        </div>
+        <div class="cpm">
+          <div class="header_text">CPM</div>
+          <div class="curr_cpm">100</div>
+        </div>
+        <div class="round">
+          <div class="header_text">Round</div>
+          <div class="curr_round">1</div>
+        </div>
+        <div class="timer">
+          <div class="header_text">Time</div>
+          <div class="curr_time">0s</div>
+        </div>
       </div>
-      <div class="cpm">
-        <div class="header_text">CPM</div>
-        <div class="curr_cpm">100</div>
-      </div>
-      <div class="errors">
-        <div class="header_text">Errors</div>
-        <div class="curr_errors">0</div>
-      </div>
-      <div class="timer">
-        <div class="header_text">Time</div>
-        <div class="curr_time">60s</div>
-      </div>
-      <div class="accuracy">
-        <div class="header_text">% Accuracy</div>
-        <div class="curr_accuracy">100</div>
+      <!-- <canvas id="meter" width="500" height="50"></canvas> -->
+      <div class="quote">Click on the area below to start the game.</div>
+      <h3 id="vowelIndicator">Loading...</h3>
+      <div class="grid-container">
+        <img src="images/frequency bar.png" alt="frequency bar" />
+        <canvas id="meter" width="30" height="220"></canvas>
+        <div class="grid2">
+          <textarea
+            id="maininput"
+            readonly
+            autocomplete="off"
+            class="input_area"
+            placeholder="start typing here..."
+            oninput="processCurrentText()"
+            onfocus="startGame()"
+          >←(Your cursor is here)</textarea>
+          <button class="restart_btn" onclick="resetValues()">RESTART</button>
+          <div class="slidecontainer">
+            <input
+              type="range"
+              min="0.01"
+              max="0.4"
+              value="0.2"
+              step="0.01"
+              class="slider"
+              id="myRange"
+            />
+            <p>Volume threshold: <span id="sliderVal"></span></p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="quote">Click on the area below to start the game.</div>
-    <textarea class="input_area" 
-      id="maininput" 
-      placeholder="start typing here..."
-      oninput="processCurrentText()"
-      onfocus="startGame()" 
-      readonly autocomplete="off">
-      ←(Your cursor is here)
-    </textarea>
-    <button class="restart_btn" onclick="resetValues()">Restart</button>
-    <p>
-      <button onclick="toggleLiveInput()">Activate</button>
-    </p>
-    <div class="slidecontainer">
-      <input type="range" min="0.01" max="0.4" value="0.2" step="0.01" class="slider" id="myRange">
-      <p>Volume threshold: <span id="sliderVal"></span></p>
-    </div>
-  </div>
-  <canvas id="meter" width="500" height="50"></canvas>
-  <script src="js/game.js"></script>
-  <script src="js/pitchdetect.js"></script>
-</body>
+    <script src="js/pitchdetect.js"></script>
+  </body>
 </html>
