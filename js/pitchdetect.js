@@ -66,8 +66,8 @@ var theBuffer = null;
 var DEBUGCANVAS = null;
 var mediaStreamSource = null;
 var canvasContext = null;
-var WIDTH = 500;
-var HEIGHT = 50;
+var WIDTH = 30;
+var HEIGHT = 220;
 var slider, sliderValElem;
 var timer = 0;
 var randomVowel;
@@ -422,7 +422,7 @@ function updatePitch(time) {
   canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
 
   if (ac == -1) {
-    canvasContext.fillRect(0, 0, 0, HEIGHT);
+    canvasContext.fillRect(0, 0, WIDTH, 0);
 
     timer = 0;
   } else {
@@ -453,7 +453,7 @@ function updatePitch(time) {
       }
     }
 
-    canvasContext.fillRect(0, 0, (pitch * WIDTH) / 600, HEIGHT);
+    canvasContext.fillRect(0, HEIGHT - pitch * HEIGHT / 200, WIDTH, pitch * HEIGHT / 200 - 80);
 
     timer++;
     timer = timer % 10;
