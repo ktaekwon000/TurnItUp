@@ -31,7 +31,7 @@ var analyser = null;
 var theBuffer = null;
 var DEBUGCANVAS = null;
 var mediaStreamSource = null;
-var canvasContext = null;
+// var canvasContext = null;
 var WIDTH = 500;
 var HEIGHT = 50;
 var slider, sliderValElem;
@@ -39,6 +39,8 @@ var timer = 0;
 var randomVowel;
 
 window.onload = function () {
+  console.log("file1");
+
   audioContext = new AudioContext();
   MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 1000)); // corresponds to a 1kHz signal
 
@@ -57,7 +59,7 @@ window.onload = function () {
   document.getElementById("vowelIndicator").innerText =
     "The random vowel chosen is " + randomVowel + ".";
 
-  canvasContext = document.getElementById("meter").getContext("2d");
+  // canvasContext = document.getElementById("meter").getContext("2d");
 
   slider = document.getElementById("myRange");
   sliderValElem = document.getElementById("sliderVal");
@@ -222,10 +224,10 @@ function updatePitch(time) {
   analyser.getFloatTimeDomainData(buf);
   var ac = autoCorrelate(buf, audioContext.sampleRate);
 
-  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+  // canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
 
   if (ac == -1) {
-    canvasContext.fillRect(0, 0, 0, HEIGHT);
+    // canvasContext.fillRect(0, 0, 0, HEIGHT);
 
     timer = 0;
   } else {
@@ -237,23 +239,23 @@ function updatePitch(time) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 23) +
           origString.substring(origString.length - 22);
-        canvasContext.fillStyle = "#82e85b";
+        // canvasContext.fillStyle = "#82e85b";
       } else if (pitch >= 130 && pitch < 180) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 22) +
           " " +
           origString.substring(origString.length - 22);
-        canvasContext.fillStyle = "#ffd135";
+        // canvasContext.fillStyle = "#ffd135";
       } else if (pitch >= 180) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 22) +
           randomVowel +
           origString.substring(origString.length - 22);
-        canvasContext.fillStyle = "#ff351f";
+        // canvasContext.fillStyle = "#ff351f";
       }
     }
 
-    canvasContext.fillRect(0, 0, (pitch * WIDTH) / 600, HEIGHT);
+    // canvasContext.fillRect(0, 0, (pitch * WIDTH) / 600, HEIGHT);
 
     timer++;
     timer = timer % 10;

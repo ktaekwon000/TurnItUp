@@ -33,7 +33,7 @@ let accuracy = 0;
 let characterTyped = 0; 
 let current_quote = ""; 
 let quoteNo = 0; 
-let timer = null; 
+let timer2 = null; 
 
 function updateQuote() { 
     quote_text.textContent = null; 
@@ -116,8 +116,8 @@ function startGame() {
     updateQuote(); 
     
     // clear old and start a new timer 
-    clearInterval(timer); 
-    timer = setInterval(updateTimer, 1000); 
+    clearInterval(timer2); 
+    timer2 = setInterval(updateTimer, 1000); 
     } 
     
     function resetValues() { 
@@ -159,7 +159,7 @@ function updateTimer() {
   
 function finishGame() { 
     // stop the timer 
-    clearInterval(timer); 
+    clearInterval(timer2); 
     
     // disable the input area 
     input_area.disabled = true; 
