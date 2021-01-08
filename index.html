@@ -61,9 +61,13 @@
     </style>
   </head>
   <body>
-    <script src="js/pitchdetect.js"></script>
+	<script src="js/pitchdetect.js"></script>
+	
+	<h3 id="vowelIndicator">Loading...</h3>
 
-    <textarea id="maininput" readonly>←(Your cursor is here)</textarea>
+	<canvas id="meter" width="500" height="50"></canvas>
+
+    <textarea id="maininput" readonly autocomplete=off>←(Your cursor is here)</textarea>
 
     <p>
       <button onclick="toggleLiveInput()">Activate</button>

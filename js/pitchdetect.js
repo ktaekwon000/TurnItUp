@@ -31,6 +31,9 @@ var analyser = null;
 var theBuffer = null;
 var DEBUGCANVAS = null;
 var mediaStreamSource = null;
+var canvasContext = null;
+var WIDTH=500;
+var HEIGHT=50;
 var detectorElem,
   canvasElem,
   waveCanvas,
@@ -39,10 +42,11 @@ var detectorElem,
   detuneElem,
   detuneAmount;
 var timer = 0;
+var randomVowel;
 
 window.onload = function () {
   audioContext = new AudioContext();
-  MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 5000)); // corresponds to a 5kHz signal
+  MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 1000)); // corresponds to a 1kHz signal
 
   detectorElem = document.getElementById("detector");
   canvasElem = document.getElementById("output");
@@ -88,6 +92,24 @@ window.onload = function () {
     reader.readAsArrayBuffer(e.dataTransfer.files[0]);
     return false;
   };
+
+  let randomVal = Math.random();
+  if (randomVal <= 0.2) {
+    randomVowel = "a";
+  } else if (randomVal <= 0.4) {
+    randomVowel = "e";
+  } else if (randomVal <= 0.6) {
+    randomVowel = "i";
+  } else if (randomVal <= 0.8) {
+    randomVowel = "o";
+  } else if (randomVal <= 1.0) {
+    randomVowel = "u";
+  }
+  console.log(randomVowel);
+  document.getElementById("vowelIndicator").innerText =
+    "The random vowel chosen is " + randomVowel + ".";
+
+  canvasContext = document.getElementById("meter").getContext("2d");
 
   this.addEventListener("keydown", (event) => {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
@@ -251,7 +273,8 @@ function updatePitch(time) {
   var cycles = new Array();
   analyser.getFloatTimeDomainData(buf);
   var ac = autoCorrelate(buf, audioContext.sampleRate);
-  // TODO: Paint confidence meter on canvasElem here.
+  
+  canvasContext.clearRect(0,0,WIDTH,HEIGHT);
 
   if (DEBUGCANVAS) {
     // This draws the current waveform, useful for debugging
@@ -284,6 +307,10 @@ function updatePitch(time) {
     noteElem.innerText = "-";
     detuneElem.className = "";
     detuneAmount.innerText = "--";
+
+    canvasContext.fillRect(0, 0, 0, HEIGHT);
+
+    timer = 0;
   } else {
     detectorElem.className = "confident";
     pitch = ac;
@@ -306,25 +333,23 @@ function updatePitch(time) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 23) +
           origString.substring(origString.length - 22);
+        canvasContext.fillStyle = "green";
       } else if (pitch >= 130 && pitch < 180) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 22) +
           " " +
           origString.substring(origString.length - 22);
-      } else if (pitch >= 180 && pitch < 230) {
+        canvasContext.fillStyle = "orange";
+      } else if (pitch >= 180) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 22) +
-          "	" +
+          randomVowel +
           origString.substring(origString.length - 22);
-      } else if (pitch >= 230 && pitch < 280) {
-        document.getElementById("maininput").value =
-          origString.substring(0, origString.length - 22) +
-          "\r\n" +
-          origString.substring(origString.length - 22);
+        canvasContext.fillStyle = "red";
       }
-
-      // document.getElementById("maininput").value += "!"
     }
+
+    canvasContext.fillRect(0, 0, pitch*WIDTH/600, HEIGHT);
 
     timer++;
     timer = timer % 10;
