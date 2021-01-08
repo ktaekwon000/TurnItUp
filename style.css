@@ -243,3 +243,18 @@ th {
   font-weight: bold;
   font-size: 20px;
 }
+
+.gobackbutton {
+  font-family: "Alike", serif;
+  font-family: "Alike", serif;
+  background-color: #fcf8e8;
+  color: #fcf8e8;
+  background-color: #326765;
+  height: 45px;
+  width: 75px;
+  margin: 8px;
+  padding: 12px;
+  border-radius: 20%;
+  border: 0px;
+  box-shadow: grey 3px 3px 3px;
+}
