@@ -8,8 +8,8 @@ app.set('port', 3000);
 app.use(express.json());
 app.use(cors());
 
-var array = Array.of(100);
-array[0] = {name: 'Kim', score: 10};
+var array = [];
+array[0] = {name: 'Kim', score: 10, wpm: 20, cpm: 100};
 
 app.get("/scores", (req, res) => {
   res.json(array);
@@ -19,7 +19,9 @@ app.get("/scores", (req, res) => {
 app.post("/scores", (req, res) => {
   array.push({
     name: req.body.name,
-    score: req.body.score
+    score: req.body.score,
+    wpm: req.body.wpm,
+    cpm: req.body.cpm
   });
   array.sort((o1, o2) => {
     return o1.score - o2.score;
