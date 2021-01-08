@@ -138,21 +138,13 @@ body {
   color: darkgreen;
 }
 
-.restart_btn {
-  display: none;
-  background-color: #326765;
-  font-size: 1.5rem;
-  padding: 10px;
-  border: 0px;
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 50px 4.3fr;
 }
 
 canvas {
-  width: 220px;
+  width: 30px;
   height: 250px;
 }
 
@@ -168,9 +160,10 @@ img {
 
 button {
   font-family: "Alike", serif;
-  background-color: #fcf8e8;
+  color: #fcf8e8;
+  background-color: #326765;
   height: 45px;
-  width: 75px;
+  width: 65px;
   margin: 8px;
   padding: 12px;
   border-radius: 20%;
