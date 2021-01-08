@@ -333,19 +333,19 @@ function updatePitch(time) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 23) +
           origString.substring(origString.length - 22);
-        canvasContext.fillStyle = "green";
+        canvasContext.fillStyle = "82e85b";
       } else if (pitch >= 130 && pitch < 180) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 22) +
           " " +
           origString.substring(origString.length - 22);
-        canvasContext.fillStyle = "orange";
+        canvasContext.fillStyle = "ffd135";
       } else if (pitch >= 180) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 22) +
           randomVowel +
           origString.substring(origString.length - 22);
-        canvasContext.fillStyle = "red";
+        canvasContext.fillStyle = "ff351f";
       }
     }
 
