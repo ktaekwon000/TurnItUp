@@ -46,8 +46,6 @@ let quotes_array = [
 
 // selecting required elements
 let timer_text = document.querySelector(".curr_time");
-let accuracy_text = document.querySelector(".curr_accuracy");
-let error_text = document.querySelector(".curr_errors");
 let cpm_text = document.querySelector(".curr_cpm");
 let wpm_text = document.querySelector(".curr_wpm");
 let quote_text = document.querySelector(".quote");
@@ -55,14 +53,9 @@ let input_area = document.querySelector(".input_area");
 let restart_btn = document.querySelector(".restart_btn");
 let cpm_group = document.querySelector(".cpm");
 let wpm_group = document.querySelector(".wpm");
-let error_group = document.querySelector(".errors");
-let accuracy_group = document.querySelector(".accuracy");
 let round_text = document.querySelector(".curr_round");
 
 let timeElapsed = 0;
-let total_errors = 0;
-let errors = 0;
-let accuracy = 0;
 let characterTyped = 0;
 let current_quote = "";
 let quoteNo = 0;
@@ -184,8 +177,6 @@ function processCurrentText() {
   // increment total characters typed
   characterTyped++;
 
-  errors = 0;
-
   quoteSpanArray = quote_text.querySelectorAll('span');
   quoteSpanArray.forEach((char, index) => {
     let typedChar = curr_input_array[index]
@@ -204,19 +195,8 @@ function processCurrentText() {
     } else {
       char.classList.add('incorrect_char');
       char.classList.remove('correct_char');
-
-      // increment number of errors
-      errors++;
     }
   });
-
-  // display the number of errors
-  error_text.textContent = total_errors + errors;
-
-  // update accuracy text
-  let correctCharacters = (characterTyped - (total_errors + errors));
-  let accuracyVal = ((correctCharacters / characterTyped) * 100);
-  accuracy_text.textContent = Math.round(accuracyVal);
 
   console.log(curr_input)
   console.log(current_quote)
@@ -224,9 +204,6 @@ function processCurrentText() {
   // if current text matches the quote
   if (curr_input==current_quote) {
     updateQuote();
-
-    // update total errors
-    total_errors += errors;
 
     // clear the input area
     input_area.value = "←(Your cursor is here)";
@@ -319,9 +296,6 @@ function startGame() {
 
 function resetValues() {
   timeElapsed = 0;
-  errors = 0;
-  total_errors = 0;
-  accuracy = 0;
   characterTyped = 0;
   quoteNo = 0;
   roundNo = 0;
@@ -330,9 +304,7 @@ function resetValues() {
 
   input_area.value = "←(Your cursor is here)";
   quote_text.textContent = 'Click on the area below to start the game.';
-  accuracy_text.textContent = 100;
   timer_text.textContent = timeElapsed + 's';
-  error_text.textContent = 0;
   restart_btn.style.display = "none";
   cpm_group.style.display = "none";
   wpm_group.style.display = "none";
