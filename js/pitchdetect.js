@@ -197,6 +197,9 @@ function processCurrentText() {
 
     // clear the input area
     input_area.value = "←(Your cursor is here)";
+    
+    // increment round no
+    round_text.textContent = roundNo;
   }
 }
 
