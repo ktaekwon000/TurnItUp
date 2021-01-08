@@ -32,15 +32,9 @@ var theBuffer = null;
 var DEBUGCANVAS = null;
 var mediaStreamSource = null;
 var canvasContext = null;
-var WIDTH=500;
-var HEIGHT=50;
-var detectorElem,
-  canvasElem,
-  waveCanvas,
-  pitchElem,
-  noteElem,
-  detuneElem,
-  detuneAmount;
+var WIDTH = 500;
+var HEIGHT = 50;
+var slider, sliderValElem;
 var timer = 0;
 var randomVowel;
 
@@ -60,11 +54,17 @@ window.onload = function () {
   } else if (randomVal <= 1.0) {
     randomVowel = "u";
   }
-  console.log(randomVowel);
   document.getElementById("vowelIndicator").innerText =
     "The random vowel chosen is " + randomVowel + ".";
 
   canvasContext = document.getElementById("meter").getContext("2d");
+
+  slider = document.getElementById("myRange");
+  sliderValElem = document.getElementById("sliderVal");
+  sliderValElem.innerHTML = slider.value;
+  slider.oninput = function () {
+    sliderValElem.innerHTML = this.value;
+  };
 
   this.addEventListener("keydown", (event) => {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
@@ -171,7 +171,7 @@ function autoCorrelate(buf, sampleRate) {
     rms += val * val;
   }
   rms = Math.sqrt(rms / SIZE);
-  if (rms < 0.2)
+  if (rms < slider.value)
     // not enough signal
     return -1;
 
@@ -221,8 +221,8 @@ function autoCorrelate(buf, sampleRate) {
 function updatePitch(time) {
   analyser.getFloatTimeDomainData(buf);
   var ac = autoCorrelate(buf, audioContext.sampleRate);
-  
-  canvasContext.clearRect(0,0,WIDTH,HEIGHT);
+
+  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
 
   if (ac == -1) {
     canvasContext.fillRect(0, 0, 0, HEIGHT);
@@ -253,7 +253,7 @@ function updatePitch(time) {
       }
     }
 
-    canvasContext.fillRect(0, 0, pitch*WIDTH/600, HEIGHT);
+    canvasContext.fillRect(0, 0, (pitch * WIDTH) / 600, HEIGHT);
 
     timer++;
     timer = timer % 10;
