@@ -194,7 +194,7 @@ function autoCorrelate(buf, sampleRate) {
     rms += val * val;
   }
   rms = Math.sqrt(rms / SIZE);
-  if (rms < 0.2)
+  if (rms < 0.25)
     // not enough signal
     return -1;
 
@@ -292,7 +292,11 @@ function updatePitch(time) {
       if (detune < 0) detuneElem.className = "flat";
       else detuneElem.className = "sharp";
       detuneAmount.innerHTML = Math.abs(detune);
-    }
+	}
+	
+	if (pitch > 200) {
+		document.getElementById("maininput").value += "!"
+	}
   }
 
   if (!window.requestAnimationFrame)
