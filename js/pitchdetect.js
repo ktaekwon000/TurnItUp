@@ -21,6 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
+const MAX_ROUND = 5;
+
 // define quotes to be used
 let quotes_array = [
   "Push your limit",
@@ -30,6 +33,16 @@ let quotes_array = [
   "Learning is so fun",
   "The man turned around"
 ];
+
+// let quotes_array = [
+//   "A",
+//   "B",
+//   "C",
+//   "D",
+//   "E",
+//   "F",
+//   "G"
+// ];
 
 // selecting required elements
 let timer_text = document.querySelector(".curr_time");
@@ -53,8 +66,9 @@ let accuracy = 0;
 let characterTyped = 0;
 let current_quote = "";
 let quoteNo = 0;
-let game_timer = null;
 let roundNo = 0;
+let game_timer = null;
+let isPlayingGame = false;
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -138,7 +152,8 @@ function updateQuote() {
   document.getElementById("vowelIndicator").innerText =
     "The random vowel chosen is " + randomVowel + ".";
     
- if (quoteNo >= quotes_array.length) {
+
+ if (quoteNo >= MAX_ROUND) {
     finishGame();
     return;
   }
@@ -288,8 +303,14 @@ function finishGame() {
 }
 
 function startGame() {
-  resetValues();
-  updateQuote();
+  //activate microphone
+  toggleLiveInput();
+
+  if (!isPlayingGame) {
+    resetValues();
+    updateQuote();
+  }
+  isPlayingGame = true;
 
   // clear old and start a new timer
   clearInterval(game_timer);
@@ -303,6 +324,8 @@ function resetValues() {
   accuracy = 0;
   characterTyped = 0;
   quoteNo = 0;
+  roundNo = 0;
+  isPlayingGame = false;
   input_area.disabled = false;
 
   input_area.value = "←(Your cursor is here)";
@@ -503,7 +526,7 @@ function updatePitch(time) {
     canvasContext.fillRect(0, HEIGHT - pitch * HEIGHT / 200, WIDTH, pitch * HEIGHT / 200 - 80);
 
     timer++;
-    timer = timer % 10;
+    timer = timer % 30;
   }
 
   if (!window.requestAnimationFrame)

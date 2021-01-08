@@ -42,7 +42,7 @@
       <div class="quote">Click on the area below to start the game.</div>
       <h3 id="vowelIndicator">Loading...</h3>
       <div class="grid-container">
-        <img src="frequency bar.png" alt="frequency bar" />
+        <img src="images/frequency bar.png" alt="frequency bar" />
         <canvas id="meter" width="30" height="220"></canvas>
         <div class="grid2">
           <textarea
@@ -53,9 +53,7 @@
             placeholder="start typing here..."
             oninput="processCurrentText()"
             onfocus="startGame()"
-          >
-←(Your cursor is here)</textarea
-          >
+          >←(Your cursor is here)</textarea>
           <button class="restart_btn" onclick="resetValues()">Restart</button>
           <div class="slidecontainer">
             <input
@@ -68,9 +66,6 @@
               id="myRange"
             />
             <p>Volume threshold: <span id="sliderVal"></span></p>
-            <p>
-              <button onclick="toggleLiveInput()">Activate</button>
-            </p>
           </div>
         </div>
       </div>

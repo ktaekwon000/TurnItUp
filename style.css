@@ -148,11 +148,16 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 50px 4fr;
+  grid-template-columns: 1fr 50px 4.3fr;
+}
+
+canvas {
+  width: 220px;
+  height: 250px;
 }
 
 img {
-  width: 200px;
+  width: 170px;
   height: 300px;
   justify-self: end;
 }
@@ -181,7 +186,7 @@ button:hover {
 .slider {
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
-  width: 100%; /* Full-width */
+  width: 95.5%;
   height: 25px; /* Specified height */
   background: #d3d3d3; /* Grey background */
   outline: none; /* Remove outline */
