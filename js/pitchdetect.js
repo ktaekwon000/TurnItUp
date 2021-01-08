@@ -107,12 +107,15 @@ window.onload = function () {
 
   this.addEventListener("keydown", (event) => {
     if (event.keyCode >= 65 && event.keyCode <= 90) {
-      let origString = document.getElementById("maininput").value;
-      document.getElementById("maininput").value =
-        origString.substring(0, origString.length - 22) +
-        event.key +
-        origString.substring(origString.length - 22);
-        processCurrentText();
+      if (event.key != randomVowel) {
+        let origString = document.getElementById("maininput").value;
+        document.getElementById("maininput").value =
+          origString.substring(0, origString.length - 22) +
+          event.key +
+          origString.substring(origString.length - 22);
+          processCurrentText();
+      }
+      
     }
   });
 
