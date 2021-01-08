@@ -329,7 +329,7 @@ function updatePitch(time) {
 
     if (timer == 0) {
       let origString = document.getElementById("maininput").value;
-      if (pitch >= 80 && pitch < 130) {
+      if (pitch < 130) {
         document.getElementById("maininput").value =
           origString.substring(0, origString.length - 23) +
           origString.substring(origString.length - 22);
