@@ -23,12 +23,11 @@ SOFTWARE.
 */
 // define quotes to be used
 let quotes_array = [
-  "Push your limit",
-  "Success is on the way",
-  "Wake up bro",
-  "It is showtime",
-  "Learning is so fun",
-  "The man turned around"
+  "A B",
+  "B",
+  "C D",
+  "D",
+  "E F"
 ];
 
 // selecting required elements
@@ -53,8 +52,9 @@ let accuracy = 0;
 let characterTyped = 0;
 let current_quote = "";
 let quoteNo = 0;
-let game_timer = null;
 let roundNo = 0;
+let game_timer = null;
+let isPlayingGame = false;
 
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -244,8 +244,11 @@ function finishGame() {
 }
 
 function startGame() {
-  resetValues();
-  updateQuote();
+  if (!isPlayingGame) {
+    resetValues();
+    updateQuote();
+  }
+  isPlayingGame = true;
 
   // clear old and start a new timer
   clearInterval(game_timer);
@@ -259,6 +262,8 @@ function resetValues() {
   accuracy = 0;
   characterTyped = 0;
   quoteNo = 0;
+  roundNo = 0;
+  isPlayingGame = false;
   input_area.disabled = false;
 
   input_area.value = "←(Your cursor is here)";
