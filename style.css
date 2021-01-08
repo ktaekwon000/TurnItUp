@@ -148,11 +148,16 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 1fr 50px 4fr;
+  grid-template-columns: 1fr 50px 4.3fr;
+}
+
+canvas {
+  width: 220px;
+  height: 250px;
 }
 
 img {
-  width: 200px;
+  width: 170px;
   height: 300px;
   justify-self: end;
 }
