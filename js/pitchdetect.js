@@ -83,12 +83,15 @@ var slider, sliderValElem;
 var timer = 0;
 var randomVowel;
 
+// https://stackoverflow.com/a/12646864
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 window.onload = function () {
-  console.log("file1");
-
-  audioContext = new AudioContext();
-  MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 1000)); // corresponds to a 1kHz signal
-
   let randomVal = Math.random();
   if (randomVal <= 0.2) {
     randomVowel = "a";
@@ -123,6 +126,8 @@ window.onload = function () {
         processCurrentText();
     }
   });
+
+  shuffleArray(quotes_array);
 };
 
 function updateQuote() {
@@ -247,6 +252,8 @@ function finishGame() {
   // display the cpm and wpm
   cpm_group.style.display = "block";
   wpm_group.style.display = "block";
+  
+  shuffleArray(quotes_array);
 }
 
 function startGame() {
@@ -276,6 +283,8 @@ function resetValues() {
   restart_btn.style.display = "none";
   cpm_group.style.display = "none";
   wpm_group.style.display = "none";
+
+  shuffleArray(quotes_array);
 }
 
 function error() {
@@ -306,6 +315,9 @@ function gotStream(stream) {
 }
 
 function toggleLiveInput() {
+  audioContext = new AudioContext();
+  MAX_SIZE = Math.max(4, Math.floor(audioContext.sampleRate / 1000)); // corresponds to a 1kHz signal
+
   if (isPlaying) {
     //stop playing and return
     sourceNode.stop(0);
