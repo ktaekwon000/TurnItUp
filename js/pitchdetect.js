@@ -21,14 +21,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
+const MAX_ROUND = 5;
+
 // define quotes to be used
 let quotes_array = [
-  "A B",
-  "B",
-  "C D",
-  "D",
-  "E F"
+  "Push your limit",
+  "Success is on the way",
+  "Wake up bro",
+  "It is showtime",
+  "Learning is so fun",
+  "The man turned around"
 ];
+
+// let quotes_array = [
+//   "A",
+//   "B",
+//   "C",
+//   "D",
+//   "E",
+//   "F",
+//   "G"
+// ];
 
 // selecting required elements
 let timer_text = document.querySelector(".curr_time");
@@ -123,7 +137,7 @@ window.onload = function () {
 };
 
 function updateQuote() {
- if (quoteNo >= quotes_array.length) {
+ if (quoteNo >= MAX_ROUND) {
     finishGame();
     return;
   }
