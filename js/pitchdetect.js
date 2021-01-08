@@ -259,7 +259,7 @@ function sendData(data, callback) {
     } catch {
       console.log(json);
     }
-  })(data);
+  })(data).then(callback);
 }
 
 function finishGame() {
@@ -298,7 +298,7 @@ function finishGame() {
       score: timeElapsed,
       cpm: cpm,
       wpm: wpm,
-    });
+    }, () => window.location.href = "leaderboard.html");
   }
 }
 
