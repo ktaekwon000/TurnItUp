@@ -123,6 +123,21 @@ window.onload = function () {
 };
 
 function updateQuote() {
+  let randomVal = Math.random();
+  if (randomVal <= 0.2) {
+    randomVowel = "a";
+  } else if (randomVal <= 0.4) {
+    randomVowel = "e";
+  } else if (randomVal <= 0.6) {
+    randomVowel = "i";
+  } else if (randomVal <= 0.8) {
+    randomVowel = "o";
+  } else if (randomVal <= 1.0) {
+    randomVowel = "u";
+  }
+  document.getElementById("vowelIndicator").innerText =
+    "The random vowel chosen is " + randomVowel + ".";
+    
  if (quoteNo >= quotes_array.length) {
     finishGame();
     return;
@@ -215,6 +230,23 @@ function updateTimer() {
   //}
 }
 
+function sendData(data, callback) {
+  (async (json) => {
+    try {
+      await fetch("https://taekwon.kim:3000/scores", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json),
+      });
+    } catch {
+      console.log(json);
+    }
+  })(data);
+}
+
 function finishGame() {
   // stop the timer
   clearInterval(game_timer);
@@ -239,8 +271,20 @@ function finishGame() {
   // display the cpm and wpm
   cpm_group.style.display = "block";
   wpm_group.style.display = "block";
-  
-  shuffleArray(quotes_array);
+
+  let name = prompt(
+    "Congrats on your new score! Input your name to submit your score."
+  );
+  if (!name) {
+    shuffleArray(quotes_array);
+  } else {
+    sendData({
+      name: name,
+      score: timeElapsed,
+      cpm: cpm,
+      wpm: wpm,
+    });
+  }
 }
 
 function startGame() {
