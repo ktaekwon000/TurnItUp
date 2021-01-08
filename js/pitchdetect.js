@@ -95,6 +95,9 @@ function shuffleArray(array) {
 }
 
 window.onload = function () {
+  //activate microphone
+  toggleLiveInput();
+
   let randomVal = Math.random();
   if (randomVal <= 0.2) {
     randomVowel = "a";
