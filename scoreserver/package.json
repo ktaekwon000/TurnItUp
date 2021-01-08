@@ -1,0 +1,11 @@
+{
+  "name": "scoreserver",
+  "version": "0.1.0",
+  "description": "A simple score server",
+  "main": "app.js",
+  "author": "ktaekwon000",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
