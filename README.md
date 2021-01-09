@@ -1,6 +1,6 @@
 # TurnItUp!
 
-![alt text](./images/ui.png "Startup Screen")
+![Startup Screen](./images/ui.png)
 
 <!-- ABOUT THE PROJECT -->
 
